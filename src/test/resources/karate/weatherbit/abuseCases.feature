@@ -15,3 +15,11 @@ Feature: Abuse cases should get error in response
     When method get
     Then status 400
     And match response == {"error":"Invalid Parameters supplied."}
+
+  @smoke
+  Scenario: get Current Weather Data with valid lat and lon
+    Given url testUrlBase + 'current'
+    And params { lat: 0, key: '#(key)' }
+    When method get
+    Then status 400
+    And match response == {"error":"Invalid Parameters supplied."}
