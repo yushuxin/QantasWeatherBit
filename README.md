@@ -46,3 +46,4 @@ If you want to run the test against different environment (dev/stage):
 After you run the maven test, you can find the report here:
  
  target/surefire-reports/karate-summary.html
+![report](report.png)
