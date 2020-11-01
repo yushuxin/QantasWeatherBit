@@ -3,12 +3,12 @@ Feature: get Current Weather Data based on Postal Code
   Assume postal code should be 2 to 7 digits, which should not includes characters.
 
   Scenario Outline: get current weather data based on postal code
-    Given url testUrlBase
+    Given url testUrlBase + 'current'
     And params { postal_code: <postalCode>, key: '#(key)' }
     When method get
     Then status <status>
 
-    Examples: valid postal code
+    Examples: valid
       | postalCode | status |
       | 12         | 200    |
       | 123        | 200    |
@@ -17,7 +17,7 @@ Feature: get Current Weather Data based on Postal Code
       | 123456     | 200    |
       | 1234567    | 200    |
 
-    Examples: invalid postal code
+    Examples: invalid
       | postalCode | status |
       | 1          | 204    |
       | 12345678   | 204    |
@@ -27,8 +27,10 @@ Feature: get Current Weather Data based on Postal Code
 
   @smoke
   Scenario: get current weather data with valid postal code
+    validate the schema of weather object
+
     * def isValidResponse = read('schema/weatherResponse.js')
-    Given url testUrlBase
+    Given url testUrlBase + 'current'
     And params { postal_code: '2126', key: '#(key)' }
     When method get
     Then status 200
